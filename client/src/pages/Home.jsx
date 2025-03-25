@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen p-8 bg-gradient-to-br from-[#F8F9FA] to-[#ECEFF1] text-[#2C3E50]">
-      {/* 🔍 Search & Category Filter */}
+      {/* 🔍 Search & Category  */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 p-6 bg-white rounded-xl shadow-lg">
         <input
           type="text"
