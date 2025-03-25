@@ -1,0 +1,5 @@
+cloudnaruy api secret = 04i3eN97DgGuoTS67CaEoaKTFr0
+cloudnary api key = 531542839889481
+Cloud name: dsys0w1a9
+
+CLOUDINARY_URL=cloudinary://<your_api_key>:<your_api_secret>@dsys0w1a9
