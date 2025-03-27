@@ -16,13 +16,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Submitting login form..."); // Debugging
       const response = await loginUser(formData);
   
       if (response.success) {
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("userId", response.user.id); // ✅ Store user ID
+        console.log("Login successful, calling login function...");
+        login(response.user); // ✅ Make sure this is being called
   
-        login(response.user); // ✅ Update user in AuthContext
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("userId", response.user.id);
+  
         toast.success("Login Successful");
         navigate("/");
       } else {

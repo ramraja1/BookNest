@@ -13,6 +13,8 @@ import Profile from "./pages/Profile";
 import AddBook from "./pages/AddBook";
 import BookDetails from "./pages/BookDetails";
 import MyListings from "./pages/MyListings";
+import Cart from "./pages/Cart";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -28,6 +30,9 @@ function App() {
           <Route path="/add-book" element={<AddBook />} />
           <Route path="/my-listings" element={<MyListings />} />
           <Route path="/book/:id" element={<BookDetails />} />
+          <Route path="/cart" element={<Cart />} />
+
+
           <Route
             path="/dashboard"
             element={
@@ -37,6 +42,7 @@ function App() {
             }
           />
         </Routes>
+    
       </Router>
 
   );

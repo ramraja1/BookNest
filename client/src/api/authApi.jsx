@@ -13,14 +13,20 @@ export const registerUser = async (userData) => {
     throw error.response?.data || { message: "Something went wrong!" };
   }
 };
-
-export const loginUser = async (userData) => {
+export const loginUser = async (formData) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/login`, JSON.stringify(userData), {
+    const res = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
-    return response.data;
+
+    const data = await res.json();
+    console.log("🔹 API Response:", data); // ✅ Log the response
+
+    return data;
   } catch (error) {
-    throw error.response?.data || { message: "Something went wrong!" };
+    console.error("❌ API Error:", error);
+    return { success: false, message: "Server error" };
   }
 };

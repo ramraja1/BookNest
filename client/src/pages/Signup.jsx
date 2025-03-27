@@ -20,6 +20,8 @@ const Signup = () => {
   
       // console.log("Signup Response:", response); // ✅ Debugging
       if (response.success && response.user) {
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("userId", response.user.id);
         login(response.user); // ✅ Update AuthContext
         toast.success("Signup Successful! 🎉 Redirecting...");
         navigate("/");
