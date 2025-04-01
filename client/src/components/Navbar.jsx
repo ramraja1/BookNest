@@ -12,7 +12,7 @@ const Navbar = () => {
   const [cartCount, setCartCount] = useState(3); // Example cart count
   const [notifications, setNotifications] = useState(2); // Example notification count
   const [notifOpen, setNotifOpen] = useState(false); // Notification dropdown
-const { Cart } = useCart(); 
+const { cart } = useCart(); 
   const handleLogout = () => {
     logout(null);
     navigate("/login");
@@ -59,11 +59,12 @@ const { Cart } = useCart();
         {/* 🛒 Cart Icon */}
         <Link to="/cart" className="relative">
           <FaShoppingCart className="text-2xl hover:text-[#A67B5B] transition" />
-          {Cart>= 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-              {Cart}
-            </span>
-          )}
+         {cart.length > 0 && (
+  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+    {cart.length}
+  </span>
+)}
+
         </Link>
 
         {/* 🔔 Notification Icon */}

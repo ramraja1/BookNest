@@ -49,39 +49,42 @@ const Profile = () => {
       formData.append("name", name);
       formData.append("mobile", mobile);
       formData.append("bio", bio);
-
-      let imageUrl = profile.image;
-
+  
+      let imageUrl = profile.image; // ✅ Keep existing image if no new image is uploaded
+  
       if (image) {
         const formDataImage = new FormData();
         formDataImage.append("image", image);
-
+  
         const uploadRes = await axios.post(
           "http://localhost:5000/api/books/upload-image",
           formDataImage,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
-
-        imageUrl = uploadRes.data.imageUrl;
+  
+        imageUrl = uploadRes.data.imageUrl; // ✅ Update image URL after successful upload
       }
-
-      const userdata = { name, mobile, bio, image: imageUrl };
-
+  
+      const userdata = { name, mobile, bio, image: imageUrl }; // ✅ Send updated data to backend
+  
       const response = await axios.put(
         "http://localhost:5000/api/users/update-profile",
         userdata,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-     if(response){
-      toast.success(response.message);
+  
+      if (response.data.success) {
+        setProfile(userdata); // ✅ Directly update the profile state
+        toast.success(response.data.message || "Profile updated successfully!"); // ✅ Show success message
+        setIsEditing(false); // ✅ Close the form
+      } else {
+        toast.error(response.data.message || "Failed to update profile."); // ✅ Handle errors
       }
-      
-      setIsEditing(false);
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to update profile.");
+      toast.error(error.response?.data?.message || "Failed to update profile."); // ✅ Handle network errors
     }
   };
-
+  
   return (
     <div className="flex h-screen bg-gray-100">
       {/* ✅ Sidebar */}
