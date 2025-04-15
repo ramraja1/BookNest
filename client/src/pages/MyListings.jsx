@@ -7,7 +7,8 @@ const MyListings = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+  const user = localStorage.getItem("user");
+  const userId = user?.id;
   const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   useEffect(() => {
     const fetchListings = async () => {
