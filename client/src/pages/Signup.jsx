@@ -18,12 +18,12 @@ const Signup = () => {
     try {
       const response = await registerUser(formData);
   
-      // console.log("Signup Response:", response); // ✅ Debugging
+      console.log("Signup Response:", response); // ✅ Debugging
       if (response.success && response.user) {
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("userId", response.user.id);
-        login(response.user); // ✅ Update AuthContext
-        toast.success("Signup Successful! 🎉 Redirecting...");
+        login(response); // ✅ Make sure this is being called
+  
+  
+        toast.success("Signup Successful.");
         navigate("/");
       } else {
         toast.error(response.message || "Signup failed!");

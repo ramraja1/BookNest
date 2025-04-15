@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FaEdit, FaSignOutAlt, FaSave, FaTimes, FaCamera } from "react-icons/fa";
 
 const Profile = () => {
   const { user, setUser, logout } = useAuth();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -14,12 +16,12 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const token = localStorage.getItem("token");
-
+  const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   // ✅ Fetch user data from backend
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/profile", {
+        const response = await axios.get(`${API_BASE_URL}/api/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -57,7 +59,7 @@ const Profile = () => {
         formDataImage.append("image", image);
   
         const uploadRes = await axios.post(
-          "http://localhost:5000/api/books/upload-image",
+         `${API_BASE_URL}/api/books/upload-image`,
           formDataImage,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
@@ -68,7 +70,7 @@ const Profile = () => {
       const userdata = { name, mobile, bio, image: imageUrl }; // ✅ Send updated data to backend
   
       const response = await axios.put(
-        "http://localhost:5000/api/users/update-profile",
+       `${API_BASE_URL}/api/users/update-profile`,
         userdata,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -120,7 +122,10 @@ const Profile = () => {
               </button>
             )}
             <button
-              onClick={logout}
+              onClick={()=>{
+                logout();
+                navigate("/");
+              }}
               className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition w-full"
             >
               <FaSignOutAlt className="inline mr-2" /> Logout

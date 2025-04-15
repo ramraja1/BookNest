@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUpload } from "react-icons/fa";
 import BookIcon from "../pages/BookIcon"; // ✅ Import SVG Component
-
+const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
 const AddBook = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -45,11 +45,11 @@ const AddBook = () => {
       formDataImage.append("image", formData.image);
     
       const uploadRes = await axios.post(
-        "http://localhost:5000/api/books/upload-image",
+       `${API_BASE_URL}/api/books/upload-image`,
         formDataImage,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
-      console.log("Image uploaded:", uploadRes.data);
+      
     
       console.log("Submitting book data...");
       const bookData = {
@@ -62,13 +62,13 @@ const AddBook = () => {
         image: uploadRes.data.imageUrl,
       };
     
-      const bookRes = await axios.post("http://localhost:5000/api/books/add", bookData);
+      const bookRes = await axios.post(`${API_BASE_URL}/api/books/add`, bookData);
       console.log("Book added successfully:", bookRes.data);
     
       toast.success("Book added successfully!");
       navigate("/");
     } catch (error) {
-      console.error("Error adding book:", error.response ? error.response.data : error);
+     
       toast.error("Something went wrong! Please try again.");
     }
   };

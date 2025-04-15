@@ -9,7 +9,7 @@ import Logo from "../pages/logo";
 const Footer = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
-
+  const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   // ✅ Handle Input Change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +25,7 @@ const Footer = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:5000/api/messages", formData);
+      const response = await axios.post(`${API_BASE_URL}/api/messages`, formData);
       toast.success(response.data.message);
       setFormData({ name: "", email: "", message: "" }); // ✅ Reset form
     } catch (error) {

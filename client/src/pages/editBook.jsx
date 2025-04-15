@@ -7,6 +7,7 @@ import { FaUpload } from "react-icons/fa";
 import BookIcon from "../pages/BookIcon"; // ✅ Import SVG Component
 
 const EditBook = () => {
+  const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -26,7 +27,7 @@ const EditBook = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/books/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/api/books/${id}`);
         const book = response.data;
         setFormData({
           title: book.title,
@@ -75,7 +76,7 @@ const EditBook = () => {
         formDataImage.append("image", formData.image);
         
         const uploadRes = await axios.post(
-          "http://localhost:5000/api/books/upload-image",
+          `${API_BASE_URL}/api/books/upload-image`,
           formDataImage,
           { headers: { "Content-Type": "multipart/form-data" } }
         );
@@ -93,7 +94,7 @@ const EditBook = () => {
         image: imageUrl, // ✅ Updated or existing image URL
       };
 
-      await axios.put(`http://localhost:5000/api/books/update/${id}`, updatedBook);
+      await axios.put(`${API_BASE_URL}/api/books/update/${id}`, updatedBook);
       
       toast.success("Book updated successfully!");
       navigate("/");

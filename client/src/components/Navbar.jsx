@@ -15,7 +15,7 @@ const Navbar = () => {
 const { cart } = useCart(); 
   const handleLogout = () => {
     logout(null);
-    navigate("/login");
+    navigate("/");
   };
 
   // Close dropdowns when clicking outside

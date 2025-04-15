@@ -8,7 +8,7 @@ const MyListings = () => {
   const [error, setError] = useState(null);
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-
+  const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   useEffect(() => {
     const fetchListings = async () => {
       if (!token || !userId) {
@@ -19,7 +19,7 @@ const MyListings = () => {
 
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/books/listings?userId=${userId}`,
+         `${API_BASE_URL}/api/books/listings?userId=${userId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -37,7 +37,7 @@ const MyListings = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/books/delete/${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/books/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setListings(listings.filter((b) => b._id !== id));

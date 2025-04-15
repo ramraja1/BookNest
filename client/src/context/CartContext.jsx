@@ -5,7 +5,7 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-
+  const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   // ✅ Load cart from localStorage immediately
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -16,7 +16,7 @@ export const CartProvider = ({ children }) => {
         const userId = localStorage.getItem("userId");
         if (!userId) return;
 
-        const response = await axios.get(`http://localhost:5000/api/cart/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/cart/${userId}`);
         if (response.data.items) {
           setCart(response.data.items);
           localStorage.setItem("cart", JSON.stringify(response.data.items)); // Update localStorage
@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
       const userId = localStorage.getItem("userId");
       if (!userId) return alert("Please login first!");
 
-      await axios.post("http://localhost:5000/api/cart/add", { userId, bookId: book._id });
+      await axios.post(`${API_BASE_URL}/api/cart/add`, { userId, bookId: book._id });
 
       setCart((prevCart) => {
         const updatedCart = prevCart.some((item) => item.bookId._id === book._id)
@@ -58,7 +58,7 @@ export const CartProvider = ({ children }) => {
       const userId = localStorage.getItem("userId");
       if (!userId) return;
 
-      await axios.post("http://localhost:5000/api/cart/remove", { userId, bookId });
+      await axios.post(`${API_BASE_URL}/api/cart/remove`, { userId, bookId });
 
       setCart((prevCart) => {
         const updatedCart = prevCart.filter((item) => item.bookId._id !== bookId);
@@ -76,7 +76,7 @@ export const CartProvider = ({ children }) => {
       const userId = localStorage.getItem("userId");
       if (!userId) return;
 
-      await axios.post("http://localhost:5000/api/cart/clear", { userId });
+      await axios.post(`${API_BASE_URL}/api/cart/clear`, { userId });
 
       setCart([]); // Reset cart state
       localStorage.removeItem("cart"); // ✅ Remove from localStorage

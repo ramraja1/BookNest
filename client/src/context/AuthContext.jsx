@@ -39,11 +39,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", userData.token);
     localStorage.setItem("tokenExpiry", tokenExpiry.toString());
 
-    console.log("%c🚀 User Logged In:", "color: green; font-weight: bold;", userData);
+    
   };
 
   const logout = () => {
-    console.log("%c🔹 Logging Out...", "color: red; font-weight: bold;");
+    
     setUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem("userId");

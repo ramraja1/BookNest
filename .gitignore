@@ -40,7 +40,6 @@ build/Release
 
 # Dependency directories
 node_modules/
-jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -134,3 +133,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Ignore only the node_modules in frontend and server directories
+client/node_modules/
+Backend/node_modules/
+
+# Ignore .env files in root, frontend, and server directories
+.env
+Backend/.env
+client/.env

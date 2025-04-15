@@ -12,7 +12,8 @@ if (!JWT_SECRET) {
   process.exit(1);
 }
 
-export const registerUser = async (req, res) => {
+export const registerUser
+ = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -39,23 +40,27 @@ export const registerUser = async (req, res) => {
     // ✅ Handle profile image
     const image = req.file ? `/uploads/${req.file.filename}` : "";
 
-    const newUser = new User({
+    const user = new User({
       name: trimmedName,
       email: trimmedEmail,
       password: hashedPassword,
       image, // Save image path
     });
 
-    await newUser.save();
+    await user.save();
 
-    res.status(201).json({
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
+    
+    res.status(200).json({
       success: true,
-      message: "User registered successfully",
+      token,
       user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-        image: newUser.image, // Return image URL
+        id: user._id,
+        name: user.name,
+        bio:user.bio,
+        mobile:user.mobile,
+        email: user.email,
+        image: user.image, // Return profile image
       },
     });
   } catch (error) {

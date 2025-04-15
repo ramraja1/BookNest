@@ -7,6 +7,7 @@ import {
 import { useCart } from "../context/CartContext";
 
 const BookDetails = () => {
+  const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart(); // ✅ Move inside the component
@@ -20,7 +21,7 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/books/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/api/books/${id}`);
         setBook(response.data);
       } catch (error) {
         console.error("Error fetching book details:", error);

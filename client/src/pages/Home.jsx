@@ -8,11 +8,11 @@ const Home = () => {
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  const API_BASE_URL = `${import.meta.env.VITE_SERVER}`;
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/books");
+        const response = await axios.get(`${API_BASE_URL}/api/books`);
         setBooks(response.data);
       } catch (error) {
         console.error("Error fetching books:", error);
