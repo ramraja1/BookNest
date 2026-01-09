@@ -50,5 +50,7 @@ npm start
 ## Contributing
 Pull requests are welcome! Please open an issue first to discuss changes.
 
+By Pawan as project
+
 ## License
 This project is licensed under the MIT License.
